@@ -1,0 +1,83 @@
+,"name":"Raimondo","role":"A","mantra":"PC","club":"Frosinone","quot":7,"fvm":23,"tier":"TITOLARE","base600":14,"baseMax":16},{"id":"5544","name":"David","role":"A","mantra":"PC","club":"Juventus","quot":9,"fvm":40,"tier":"TITOLARE","base600":24,"baseMax":28},{"id":"5585","name":"Malen","role":"A","mantra":"PC","club":"Roma","quot":34,"fvm":365,"tier":"TOP","base600":219,"baseMax":241},{"id":"5637","name":"Davis K.","role":"A","mantra":"PC","club":"Udinese","quot":19,"fvm":122,"tier":"SEMI-TOP","base600":73,"baseMax":82},{"id":"5672","name":"Dia","role":"A","mantra":"A","club":"Lazio","quot":10,"fvm":32,"tier":"TITOLARE","base600":19,"baseMax":22},{"id":"5734","name":"Soulè","role":"A","mantra":"A","club":"Roma","quot":12,"fvm":53,"tier":"SEMI-TOP","base600":32,"baseMax":36},{"id":"5882","name":"Mota","role":"A","mantra":"A","club":"Monza","quot":5,"fvm":18,"tier":"TITOLARE","base600":11,"baseMax":13},{"id":"5918","name":"Sulemana K.","role":"A","mantra":"A","club":"Atalanta","quot":6,"fvm":17,"tier":"TITOLARE","base600":10,"baseMax":12},{"id":"5951","name":"Kolo Muani","role":"A","mantra":"PC","club":"Juventus","quot":26,"fvm":225,"tier":"TOP","base600":135,"baseMax":148},{"id":"5995","name":"De Ketelaere","role":"A","mantra":"A","club":"Atalanta","quot":17,"fvm":107,"tier":"SEMI-TOP","base600":64,"baseMax":72},{"id":"6052","name":"Hojlund","role":"A","mantra":"PC","club":"Napoli","quot":28,"fvm":272,"tier":"TOP","base600":163,"baseMax":179},{"id":"6060","name":"Laurientè","role":"A","mantra":"A","club":"Sassuolo","quot":15,"fvm":88,"tier":"SEMI-TOP","base600":53,"baseMax":59},{"id":"6164","name":"Vitinha O.","role":"A","mantra":"A","club":"Genoa","quot":8,"fvm":20,"tier":"TITOLARE","base600":12,"baseMax":14},{"id":"6204","name":"Kvernadze","role":"A","mantra":"W;A","club":"Frosinone","quot":4,"fvm":15,"tier":"TITOLARE","base600":9,"baseMax":10},{"id":"6215","name":"Lucca","role":"A","mantra":"PC","club":"Napoli","quot":3,"fvm":10,"tier":"SCOMMESSA","base600":6,"baseMax":7},{"id":"6229","name":"Tourè E.","role":"A","mantra":"PC","club":"Parma","quot":11,"fvm":43,"tier":"TITOLARE","base600":26,"baseMax":30},{"id":"6243","name":"Borrelli","role":"A","mantra":"PC","club":"Cagliari","quot":4,"fvm":8,"tier":"SCOMMESSA","base600":5,"baseMax":6},{"id":"6397","name":"Ramos G.","role":"A","mantra":"PC","club":"Milan","quot":27,"fvm":232,"tier":"TOP","base600":139,"baseMax":153},{"id":"6434","name":"Yildiz","role":"A","mantra":"A","club":"Juventus","quot":23,"fvm":192,"tier":"TOP","base600":115,"baseMax":127},{"id":"6435","name":"Krstovic","role":"A","mantra":"PC","club":"Atalanta","quot":18,"fvm":95,"tier":"SEMI-TOP","base600":57,"baseMax":64},{"id":"6519","name":"Camarda","role":"A","mantra":"PC","club":"Milan","quot":5,"fvm":20,"tier":"TITOLARE","base600":12,"baseMax":14},{"id":"6530","name":"Ghedjemis","role":"A","mantra":"W;A","club":"Frosinone","quot":9,"fvm":30,"tier":"TITOLARE","base600":18,"baseMax":21},{"id":"6556","name":"Noslin","role":"A","mantra":"A","club":"Lazio","quot":6,"fvm":17,"tier":"TITOLARE","base600":10,"baseMax":12},{"id":"6572","name":"Castro S.","role":"A","mantra":"PC","club":"Roma","quot":14,"fvm":82,"tier":"SEMI-TOP","base600":49,"baseMax":55},{"id":"6598","name":"Mutandwa","role":"A","mantra":"PC","club":"Cagliari","quot":6,"fvm":15,"tier":"TITOLARE","base600":9,"baseMax":10},{"id":"6643","name":"Dallinga","role":"A","mantra":"PC","club":"Bologna","quot":8,"fvm":10,"tier":"SCOMMESSA","base600":6,"baseMax":7},{"id":"6646","name":"Adams C.","role":"A","mantra":"A","club":"Torino","quot":9,"fvm":32,"tier":"TITOLARE","base600":19,"baseMax":22},{"id":"6669","name":"Bonny","role":"A","mantra":"PC","club":"Inter","quot":7,"fvm":22,"tier":"TITOLARE","base600":13,"baseMax":15},{"id":"6675","name":"Dovbyk","role":"A","mantra":"PC","club":"Bologna","quot":16,"fvm":73,"tier":"SEMI-TOP","base600":44,"baseMax":49},{"id":"6822","name":"Ekhator","role":"A","mantra":"A","club":"Juventus","quot":3,"fvm":10,"tier":"SCOMMESSA","base600":6,"baseMax":7},{"id":"6831","name":"Neres","role":"A","mantra":"W;A","club":"Napoli","quot":6,"fvm":22,"tier":"TITOLARE","base600":13,"baseMax":15},{"id":"6904","name":"Yeboah J.","role":"A","mantra":"A","club":"Venezia","quot":8,"fvm":28,"tier":"TITOLARE","base600":17,"baseMax":20},{"id":"6967","name":"Diao","role":"A","mantra":"W;A","club":"Como","quot":11,"fvm":50,"tier":"TITOLARE","base600":30,"baseMax":34},{"id":"6981","name":"Vaz","role":"A","mantra":"PC","club":"Roma","quot":1,"fvm":3,"tier":"LOW COST","base600":2,"baseMax":3},{"id":"7001","name":"N'Dri","role":"A","mantra":"W;A","club":"Lecce","quot":3,"fvm":8,"tier":"SCOMMESSA","base600":5,"baseMax":6},{"id":"7008","name":"Gimenez","role":"A","mantra":"PC","club":"Milan","quot":6,"fvm":13,"tier":"SCOMMESSA","base600":8,"baseMax":9},{"id":"7017","name":"Douvikas","role":"A","mantra":"PC","club":"Como","quot":20,"fvm":157,"tier":"TOP","base600":94,"baseMax":103},{"id":"7023","name":"Pellegrino M.","role":"A","mantra":"PC","club":"Fiorentina","quot":15,"fvm":60,"tier":"SEMI-TOP","base600":36,"baseMax":40},{"id":"7027","name":"Azon","role":"A","mantra":"PC","club":"Como","quot":1,"fvm":2,"tier":"LOW COST","base600":1,"baseMax":2},{"id":"7071","name":"Esposito F.P.","role":"A","mantra":"PC","club":"Inter","quot":16,"fvm":93,"tier":"SEMI-TOP","base600":56,"baseMax":63},{"id":"7120","name":"Lang","role":"A","mantra":"A","club":"Napoli","quot":3,"fvm":10,"tier":"SCOMMESSA","base600":6,"baseMax":7},{"id":"7128","name":"Kuhn","role":"A","mantra":"W;A","club":"Como","quot":3,"fvm":5,"tier":"LOW COST","base600":3,"baseMax":4},{"id":"7158","name":"Moro L.","role":"A","mantra":"PC","club":"Sassuolo","quot":1,"fvm":2,"tier":"LOW COST","base600":1,"baseMax":2},{"id":"7161","name":"Bayo V.","role":"A","mantra":"PC","club":"Udinese","quot":1,"fvm":3,"tier":"LOW COST","base600":2,"baseMax":3},{"id":"7162","name":"Giovane","role":"A","mantra":"A","club":"Napoli","quot":4,"fvm":10,"tier":"SCOMMESSA","base600":6,"baseMax":7},{"id":"7213","name":"Frigan","role":"A","mantra":"A","club":"Parma","quot":5,"fvm":13,"tier":"SCOMMESSA","base600":8,"baseMax":9},{"id":"7249","name":"Buksa","role":"A","mantra":"PC","club":"Udinese","quot":2,"fvm":3,"tier":"LOW COST","base600":2,"baseMax":3},{"id":"7252","name":"Stulic","role":"A","mantra":"PC","club":"Lecce","quot":7,"fvm":18,"tier":"TITOLARE","base600":11,"baseMax":13},{"id":"7272","name":"Gueye","role":"A","mantra":"PC","club":"Udinese","quot":4,"fvm":7,"tier":"SCOMMESSA","base600":4,"baseMax":5},{"id":"7313","name":"Ratkov","role":"A","mantra":"PC","club":"Lazio","quot":10,"fvm":32,"tier":"TITOLARE","base600":19,"baseMax":22},{"id":"7317","name":"Trepy","role":"A","mantra":"PC","club":"Cagliari","quot":1,"fvm":2,"tier":"LOW COST","base600":1,"baseMax":2},{"id":"7338","name":"Albarracin","role":"A","mantra":"A","club":"Cagliari","quot":1,"fvm":2,"tier":"LOW COST","base600":1,"baseMax":2},{"id":"7342","name":"Elphege","role":"A","mantra":"PC","club":"Parma","quot":3,"fvm":12,"tier":"SCOMMESSA","base600":7,"baseMax":8},{"id":"7347","name":"Bowie","role":"A","mantra":"PC","club":"Sassuolo","quot":10,"fvm":38,"tier":"TITOLARE","base600":23,"baseMax":26},{"id":"7349","name":"Kulenovic","role":"A","mantra":"PC","club":"Torino","quot":4,"fvm":8,"tier":"SCOMMESSA","base600":5,"baseMax":6},{"id":"7351","name":"Santos A.","role":"A","mantra":"W;A","club":"Napoli","quot":14,"fvm":57,"tier":"SEMI-TOP","base600":34,"baseMax":38},{"id":"7374","name":"Mendy P.","role":"A","mantra":"PC","club":"Cagliari","quot":4,"fvm":8,"tier":"SCOMMESSA","base600":5,"baseMax":6},{"id":"7408","name":"Lisman","role":"A","mantra":"W;A","club":"Venezia","quot":1,"fvm":2,"tier":"LOW COST","base600":1,"baseMax":2},{"id":"7449","name":"Rrahmani Al.","role":"A","mantra":"PC","club":"Venezia","quot":8,"fvm":20,"tier":"TITOLARE","base600":12,"baseMax":14},{"id":"7453","name":"Havel","role":"A","mantra":"PC","club":"Genoa","quot":4,"fvm":8,"tier":"SCOMMESSA","base600":5,"baseMax":6},{"id":"7482","name":"Lauberbach","role":"A","mantra":"PC","club":"Venezia","quot":1,"fvm":2,"tier":"LOW COST","base600":1,"baseMax":2},{"id":"7484","name":"Adams A.","role":"A","mantra":"PC","club":"Venezia","quot":12,"fvm":52,"tier":"SEMI-TOP","base600":31,"baseMax":35},{"id":"7523","name":"Varela G.","role":"A","mantra":"PC","club":"Monza","quot":3,"fvm":7,"tier":"SCOMMESSA","base600":4,"baseMax":5},{"id":"7546","name":"Robinson J.","role":"A","mantra":"A","club":"Monza","quot":4,"fvm":10,"tier":"SCOMMESSA","base600":6,"baseMax":7},{"id":"7547","name":"Kevin Carlos","role":"A","mantra":"PC","club":"Cagliari","quot":13,"fvm":47,"tier":"TITOLARE","base600":28,"baseMax":32},{"id":"7554","name":"Romero D.","role":"A","mantra":"PC","club":"Parma","quot":10,"fvm":38,"tier":"TITOLARE","base600":23,"baseMax":26},{"id":"7561","name":"Lontani","role":"A","mantra":"A","club":"Parma","quot":1,"fvm":3,"tier":"LOW COST","base600":2,"baseMax":3},{"id":"7568","name":"De Martis","role":"A","mantra":"PC","club":"Parma","quot":1,"fvm":2,"tier":"LOW COST","base600":1,"baseMax":2}];
+const TEAM_NAMES = ["AC Rullano", "AS Quadra", "Masterchef United", "TEAM90", "Cartagine FC", "I Socic", "IGORMITI", "Sporting Madonna", "Fc impossibile 3.0", "AC Kaiser"];
+const STORAGE_KEY = "fantasta_sporting_madonna_2026_27_v2";
+
+const defaultState = {
+  config:{
+    initialCredits:600,
+    mine:"Sporting Madonna",
+    slots:{P:3,D:8,C:8,A:6},
+    budgetPct:{P:8,D:15,C:27,A:50}
+  },
+  teams:TEAM_NAMES.map(name=>({name,spent:0,roster:[]})),
+  history:[],
+  favorites:[],
+  bidHistory:[]
+};
+
+let state = loadState();
+
+function clone(x){return JSON.parse(JSON.stringify(x))}
+function loadState(){
+  try{
+    const raw=localStorage.getItem(STORAGE_KEY);
+    if(!raw) return clone(defaultState);
+    const s=JSON.parse(raw);
+    if(!s.favorites) s.favorites=[];
+    if(!s.bidHistory) s.bidHistory=[];
+    return s;
+  }catch(e){return clone(defaultState)}
+}
+function saveState(){localStorage.setItem(STORAGE_KEY,JSON.stringify(state))}
+function byId(id){return document.getElementById(id)}
+function team(name){return state.teams.find(t=>t.name===name)}
+function playerByName(name){return PLAYERS.find(p=>p.name.toLowerCase()===String(name||"").trim().toLowerCase())}
+function soldEntry(name){for(let i=state.history.length-1;i>=0;i--){if(state.history[i].player===name)return state.history[i]}return null}
+function roleCount(t,r){return t.roster.filter(x=>x.role===r).length}
+function slotsLeft(t,r){return Math.max(0,state.config.slots[r]-roleCount(t,r))}
+function totalSlotsLeft(t){return ["P","D","C","A"].reduce((s,r)=>s+slotsLeft(t,r),0)}
+function creditsLeft(t){return state.config.initialCredits-t.spent}
+function maxAffordable(t){return Math.max(0,creditsLeft(t)-Math.max(0,totalSlotsLeft(t)-1))}
+function fmtPct(v){const x=Math.round(v*100);return (x>0?"+":"")+x+"%"}
+function esc(s){return String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[c]))}
+function toast(msg){const e=byId("toast");e.textContent=msg;e.style.display="block";clearTimeout(window.__tt);window.__tt=setTimeout(()=>e.style.display="none",2200)}
+function isFav(name){return state.favorites.includes(name)}
+function clamp(v,min,max){return Math.max(min,Math.min(max,v))}
+function bidsFor(playerName){return state.bidHistory.filter(x=>x.player===playerName).sort((a,b)=>a.ts-b.ts)}
+function lastBidFor(playerName){const a=bidsFor(playerName);return a.length?a[a.length-1]:null}
+function totalRosterSlots(){return Object.values(state.config.slots).reduce((a,b)=>a+b,0)}
+function roleSpent(t,role){return t.roster.filter(x=>x.role===role).reduce((s,x)=>s+x.price,0)}
+
+function inflation(role){
+  const vals=[];
+  for(const h of state.history){
+    if(role && h.role!==role) continue;
+    const p=PLAYERS.find(x=>x.name===h.player);
+    if(p && p.base600>0) vals.push(h.price/p.base600);
+  }
+  if(!vals.length) return 0;
+  // media robusta: limita l'effetto di singoli acquisti estremi
+  const clamped=vals.map(x=>Math.max(.55,Math.min(1.65,x)));
+  return clamped.reduce((a,b)=>a+b,0)/clamped.length-1;
+}
+
+function dynamicMax(p){
+  if(!p) return 0;
+  const me=team(state.config.mine);
+  if(!me || slotsLeft(me,p.role)<=0) return 0;
+
+  const roleInfl=Math.max(-.15,Math.min(.35,inflation(p.role)));
+  const overallInfl=Math.max(-.10,Math.min(.20,inflation()));
+  const infl=(roleInfl*0.75)+(overallInfl*0.25);
+
+  const planned=Math.round(state.config.initialCredits*(state.config.budgetPct[p.role]||0)/100);
+  const spentRole=me.roster.filter(x=>x.role===p.role).reduce((s,x)=>s+x.price,0);
+  const roleLeft=Math.max(0,planned-spentRole);
+  const roleReserve=Math.max(0,slotsLeft(me,p.role)-1);
+  const roleCap=Math.max(0,roleLeft-roleReserve);
+
+  let dyn=Math.round(p.baseMax*(1+infl));
+  // Se il piano di reparto è già stato sforato, non azzera il valore: usa il tetto generale.
+  if(roleCap>0) dyn=Math.min(dyn,roleCap);
+  dyn=Math.min(dyn,maxAffordable(me));
+  return Math.max(0,dyn);
