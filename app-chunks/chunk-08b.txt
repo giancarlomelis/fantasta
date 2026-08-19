@@ -1,0 +1,71 @@
+x}`,help:`FVM ${p.fvm} → riferimento su 600: ${p.base600}. Inflazione ${p.role}: ${fmtPct(inflation(p.role))}.`};
+  if(bid<=p.base600) return {cls:"good",txt:`RILANCIA — sotto il target (${p.base600})`,help:`Tetto dinamico attuale: ${max}.`};
+  if(bid<=max) return {cls:"warn",txt:`VALUTA — non superare ${max}`,help:`Se il prezzo sale oltre ${max}, il costo compromette il piano attuale.`};
+  return {cls:"bad",txt:`LASCIA — oltre il massimo (${max})`,help:`Prezzo corrente ${bid}; target FVM su 600: ${p.base600}.`};
+}
+
+function renderSelectors(){
+  const q=byId("auctionPlayer").value;
+  byId("playerList").innerHTML=PLAYERS.filter(p=>!soldEntry(p.name)).map(p=>`<option value="${esc(p.name)}">${p.role} · ${esc(p.club)} · FVM ${p.fvm}</option>`).join("");
+  const selected=byId("bidder").value;
+  byId("bidder").innerHTML=state.teams.map(t=>`<option ${t.name===selected?"selected":""}>${esc(t.name)}</option>`).join("");
+  byId("cfgMine").innerHTML=state.teams.map(t=>`<option ${t.name===state.config.mine?"selected":""}>${esc(t.name)}</option>`).join("");
+}
+
+function renderStats(){
+  const me=team(state.config.mine);
+  byId("myCredits").textContent=creditsLeft(me);
+  byId("myCount").textContent=me.roster.length;
+  byId("mySlots").textContent=totalSlotsLeft(me);
+  byId("inflation").textContent=fmtPct(inflation());
+  byId("buyPower").textContent=maxAffordable(me);
+}
+
+function renderAuction(){
+  const p=playerByName(byId("auctionPlayer").value);
+  byId("pRole").textContent=p?.role||"—";
+  byId("pClub").textContent=p?.club||"—";
+  byId("pQuot").textContent=p?.quot??"—";
+  byId("pFvm").textContent=p?.fvm??"—";
+  byId("pTarget").textContent=p?.base600??"—";
+  byId("pMax").textContent=p?dynamicMax(p):"—";
+  const bid=+byId("currentBid").value||0;
+  const s=signalFor(p,bid);
+  byId("signal").className="signal "+s.cls;
+  byId("signal").textContent=s.txt;
+  byId("signalHelp").textContent=s.help||"Il target parte da FVM × 0,6; il massimo si adatta all'andamento dell'asta e al budget residuo.";
+  byId("favBtn").textContent=p && isFav(p.name)?"★ Rimuovi dagli osservati":"☆ Osserva giocatore";
+}
+
+function renderPower(){
+  const p=playerByName(byId("auctionPlayer").value);
+  const grid=byId("powerGrid"), strategy=byId("auctionStrategy"), timeline=byId("bidTimeline"), leaderBadge=byId("leaderBadge");
+  if(!p){
+    grid.innerHTML=""; timeline.innerHTML="";
+    leaderBadge.textContent="Nessun rilancio registrato";
+    strategy.textContent="Seleziona un giocatore per confrontare tutte le squadre.";
+    return;
+  }
+  const bid=+byId("currentBid").value||1;
+  const events=bidsFor(p.name);
+  const last=events.length?events[events.length-1]:null;
+  leaderBadge.textContent=last?`In testa: ${last.team} · ${last.amount}`:"Nessun rilancio registrato";
+  timeline.innerHTML=events.length?events.map((e,i)=>{
+    const prev=i?events[i-1]:null;
+    const cls=[e.team===state.config.mine?'mine':'',prev&&prev.team!==e.team?'counter':''].filter(Boolean).join(' ');
+    return `<div class="bid-event ${cls}">${esc(e.team)} <b>${e.amount}</b></div>`;
+  }).join(''):`<span class="note">Nessun rilancio registrato per ${esc(p.name)}.</span>`;
+
+  const mine=team(state.config.mine);
+  const myMax=dynamicMax(p);
+  const powers=state.teams.map(t=>({t,pow:purchasePower(t,p,bid),profile:biddingProfile(t.name)}))
+    .sort((a,b)=>(b.t.name===state.config.mine)-(a.t.name===state.config.mine) || b.pow.score-a.pow.score || b.pow.est-a.pow.est);
+
+  grid.innerHTML=powers.map(({t,pow,profile})=>{
+    const isLeader=last?.team===t.name;
+    const out=slotsLeft(t,p.role)<=0||pow.hard<=bid;
+    let status=pow.label, advice='';
+    if(t.name===state.config.mine){
+      status='TU';
+      const margin=myMax-bid;
+      advice=margin>=1?`Margine strategico: ${margin} crediti. ${last&&last.team!==state.config.mine?'Puoi rispondere al rilancio avversario senza superare il tuo tetto.':'Se sei in testa, controlla soprattutto le squadre con stima max superiore al prezzo.'}`:`Il prezzo è al limite o oltre 
