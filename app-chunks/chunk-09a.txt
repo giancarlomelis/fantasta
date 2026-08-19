@@ -1,0 +1,82 @@
+f==="sold" && !sold) return false;
+    if(sf==="mine" && sold?.team!==state.config.mine) return false;
+    if(sf==="fav" && !isFav(p.name)) return false;
+    return true;
+  });
+  arr.sort((a,b)=>{
+    if(sort==="name") return a.name.localeCompare(b.name,"it");
+    if(sort==="quot") return b.quot-a.quot || b.fvm-a.fvm;
+    if(sort==="target") return b.base600-a.base600 || b.fvm-a.fvm;
+    return b.fvm-a.fvm || b.quot-a.quot;
+  });
+  return arr;
+}
+
+function renderPlayers(){
+  const arr=filteredPlayers();
+  byId("playersTable").innerHTML=arr.map(p=>{
+    const s=soldEntry(p.name);
+    const status=s?(s.team===state.config.mine?`<span class="status-mine">MIO · ${s.price}</span>`:`<span class="status-sold">${esc(s.team)} · ${s.price}</span>`):`<span class="status-free">Disponibile</span>`;
+    return `<tr>
+      <td><button class="star ${isFav(p.name)?"on":""}" data-fav="${esc(p.name)}">${isFav(p.name)?"★":"☆"}</button></td>
+      <td><span class="role">${p.role}</span></td>
+      <td><b>${esc(p.name)}</b><div class="note">${esc(p.mantra||"")}</div></td>
+      <td>${esc(p.club)}</td>
+      <td><span class="badge">${p.tier}</span></td>
+      <td>${p.quot}</td>
+      <td><b>${p.fvm}</b></td>
+      <td>${p.base600}</td>
+      <td>${dynamicMax(p)}</td>
+      <td>${status}</td>
+      <td><button class="smallbtn" data-auction="${esc(p.name)}">Asta</button></td>
+    </tr>`;
+  }).join("") || `<tr><td colspan="11" class="note">Nessun calciatore trovato.</td></tr>`;
+
+  document.querySelectorAll("[data-auction]").forEach(b=>b.addEventListener("click",()=>{
+    byId("auctionPlayer").value=b.dataset.auction;
+    syncAuctionFromSelectedPlayer();
+    window.scrollTo({top:0,behavior:"smooth"});
+  }));
+  document.querySelectorAll("[data-fav]").forEach(b=>b.addEventListener("click",()=>{
+    toggleFav(b.dataset.fav);
+  }));
+}
+
+function renderStrategy(){
+  const me=team(state.config.mine);
+  byId("strategy").innerHTML=["P","D","C","A"].map(r=>{
+    const target=Math.round(state.config.initialCredits*(state.config.budgetPct[r]||0)/100);
+    const spent=me.roster.filter(x=>x.role===r).reduce((s,x)=>s+x.price,0);
+    const left=target-spent;
+    const infl=inflation(r);
+    return `<div class="strategy-item">
+      <div class="strategy-line"><div><b>${r}</b><div class="note">Piano ${target} · spesi ${spent} · slot ${slotsLeft(me,r)} · inflazione ${fmtPct(infl)}</div></div><b>${left>=0?left:"-"+Math.abs(left)}</b></div>
+    </div>`;
+  }).join("");
+  const favs=state.favorites.map(n=>PLAYERS.find(p=>p.name===n)).filter(Boolean).filter(p=>!soldEntry(p.name));
+  byId("favorites").innerHTML=favs.length?favs.sort((a,b)=>b.fvm-a.fvm).map(p=>`<button class="fav-chip" data-favpick="${esc(p.name)}">${p.role} · ${esc(p.name)} · ${p.base600}</button>`).join(""):`<span class="note">Nessun giocatore osservato.</span>`;
+  document.querySelectorAll("[data-favpick]").forEach(b=>b.addEventListener("click",()=>{byId("auctionPlayer").value=b.dataset.favpick;syncAuctionFromSelectedPlayer();window.scrollTo({top:0,behavior:"smooth"})}));
+}
+
+function renderHistory(){
+  const list=[...state.history].reverse();
+  byId("history").innerHTML=list.length?list.map((h,i)=>`<div class="history-row"><div><b>${esc(h.player)}</b><div class="note">${h.role} · ${esc(h.team)}</div></div><div><b>${h.price}</b></div></div>`).join(""):`<div class="note">Nessun acquisto registrato.</div>`;
+}
+
+function renderAll(){
+  renderSelectors();renderStats();renderAuction();renderPower();renderTeams();renderPlayers();renderStrategy();renderHistory();saveState();
+}
+
+function syncAuctionFromSelectedPlayer(){
+  const p=playerByName(byId("auctionPlayer").value);
+  if(!p){renderAuction();renderPower();return}
+  const last=lastBidFor(p.name);
+  byId("currentBid").value=last?.amount||1;
+  if(last) byId("bidder").value=last.team;
+  renderAuction();renderPower();
+}
+
+function registerBid(){
+  const p=playerByName(byId("auctionPlayer").value);
+  const amount=+byId("currentBid").value||0;
+  const teamName=byId("bidder
