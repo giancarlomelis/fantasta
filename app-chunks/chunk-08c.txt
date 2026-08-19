@@ -1,0 +1,47 @@
+il tuo massimo: evita altri rilanci.`;
+    } else if(out){
+      advice=slotsLeft(t,p.role)<=0?`Ruolo ${p.role} completo: non può insidiarti su questo giocatore.`:`Non ha capienza per superare ${bid}.`;
+    } else {
+      const pressure=pressureLimitAgainst(t,p,bid);
+      if(isLeader){
+        advice=myMax>bid?`Ti sta insidiando. Risposta possibile fino a ${myMax}; la sua stima è ${pow.est}.`:`È in testa oltre il tuo tetto: lascialo spendere.`;
+      } else if(pressure>bid){
+        advice=`Puoi mettergli pressione fino a circa ${pressure}, ma solo accettando il rischio di aggiudicarti il giocatore.`;
+      } else if(pow.est>bid){
+        advice=`Può ancora entrare: stima max ${pow.est}, tetto legale ${pow.hard}.`;
+      } else {
+        advice=`Ha capienza legale, ma il prezzo è già oltre la sua fascia stimata.`;
+      }
+    }
+    const behavior=profile.againstMine||profile.mineAgainst?`vs te: ${profile.againstMine} controrilanci subiti · ${profile.mineAgainst} rilanci tuoi`:'Nessun precedente di rilancio diretto con te';
+    return `<div class="power-team ${t.name===state.config.mine?'mine':''} ${isLeader?'leader':''} ${out?'out':''}">
+      <div class="power-team-head"><div><div class="power-team-name">${esc(t.name)}${isLeader?' · IN TESTA':''}</div><div class="note">${creditsLeft(t)} cr · ${p.role} ${roleCount(t,p.role)}/${state.config.slots[p.role]} · slot totali ${totalSlotsLeft(t)}</div></div><div class="power-score ${pow.cls}">${pow.score}</div></div>
+      <div class="power-metrics"><div class="power-metric"><small>Stima max</small><b>${pow.est}</b></div><div class="power-metric"><small>Tetto legale</small><b>${pow.hard}</b></div><div class="power-metric"><small>Margine</small><b>${Math.max(0,pow.est-bid)}</b></div></div>
+      <div class="power-status">${status}</div><div class="power-strategy">${advice}</div><div class="behavior">${behavior}</div>
+    </div>`;
+  }).join('');
+
+  const rivals=powers.filter(x=>x.t.name!==state.config.mine && x.pow.score>0);
+  const top=rivals[0];
+  if(last?.team && last.team!==state.config.mine){
+    const opp=team(last.team), oppEst=estimatedMaxForTeam(opp,p), press=pressureLimitAgainst(opp,p,bid);
+    if(bid<myMax){
+      strategy.innerHTML=`<b>Rilancio subito da ${esc(last.team)}.</b> Prezzo ${bid}. Il tuo massimo è <b>${myMax}</b>; stima avversaria <b>${oppEst}</b>. ${press>bid?`Se vuoi solo spingerlo a spendere, zona di pressione prudente fino a <b>${press}</b> (rischio reale di aggiudicartelo).`:'Meglio non usare rilanci di pressione: sei già vicino al tuo limite.'}`;
+    } else {
+      strategy.innerHTML=`<b>${esc(last.team)} è in testa a ${bid}.</b> Il prezzo ha raggiunto/superato il tuo massimo (${myMax}): strategia consigliata <b>lasciare</b> e far consumare budget all'avversario.`;
+    }
+  } else if(last?.team===state.config.mine){
+    strategy.innerHTML=top?`<b>Sei in testa a ${bid}.</b> Minaccia principale: <b>${esc(top.t.name)}</b> (potenza ${top.pow.score}/100, stima max ${top.pow.est}). Tuo tetto: <b>${myMax}</b>.`:`<b>Sei in testa a ${bid}.</b> Al momento nessuna squadra ha una minaccia significativa secondo i dati disponibili.`;
+  } else {
+    strategy.innerHTML=top?`Nessun rilancio registrato. Sul giocatore <b>${esc(p.name)}</b> la minaccia teorica più alta è <b>${esc(top.t.name)}</b> (${top.pow.score}/100, stima max ${top.pow.est}). Il tuo massimo è <b>${myMax}</b>.`:`Nessun rilancio registrato e nessun avversario con slot/capienza utile.`;
+  }
+}
+
+function renderTeams(){
+  byId("teams").innerHTML=state.teams.map(t=>{
+    const left=creditsLeft(t);
+    const pct=Math.max(0,Math.min(100,left/state.config.initialCredits*100));
+    const slots=["P","D","C","A"].map(r=>`${r} ${roleCount(t,r)}/${state.config.slots[r]}`).join(" · ");
+    const roster=t.roster.slice().sort((a,b)=>a.role.localeCompare(b.role)||b.price-a.price);
+    const rosterHtml=roster.length?roster.map(x=>`${x.role} · ${esc(x.player)} — <b>${x.price}</b>`).join("<br>"):"Nessun acquisto";
+    return `<di
