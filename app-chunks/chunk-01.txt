@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>FantAsta 2026/27 — Sporting Madonna</title>
+<style>
+:root{
+  --bg:#0a0f1d;--panel:#111a2b;--panel2:#17233a;--panel3:#0e1728;
+  --text:#eef4ff;--muted:#91a0b7;--border:#273651;--accent:#5aa7ff;
+  --good:#3ddc97;--warn:#f4c95d;--bad:#ff6b86;--purple:#bda4ff;
+}
+*{box-sizing:border-box}
+html{color-scheme:dark}
+body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}
+button,input,select{font:inherit}
+button{cursor:pointer}
+.app{max-width:1600px;margin:auto;padding:16px}
+.top{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:12px}
+.brand{display:flex;align-items:center;gap:10px}
+.logo{width:42px;height:42px;border-radius:13px;background:linear-gradient(135deg,#5aa7ff,#bda4ff);display:grid;place-items:center;color:#07111f;font-weight:900}
+h1{font-size:20px;margin:0} .sub{font-size:12px;color:var(--muted);margin-top:2px}
+.actions{display:flex;gap:7px;flex-wrap:wrap}
+.btn{border:1px solid var(--border);background:var(--panel2);color:var(--text);padding:9px 12px;border-radius:10px}
+.btn:hover{filter:brightness(1.12)}
+.btn.primary{background:var(--accent);color:#07111f;border-color:transparent;font-weight:800}
+.btn.danger{background:#3a1722;color:#ffd6df}
+.stats{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-bottom:12px}
+.stat{background:var(--panel);border:1px solid var(--border);border-radius:14px;padding:12px}
+.stat small{display:block;color:var(--muted);font-size:11px}.stat b{font-size:24px;display:block;margin-top:3px}
+.layout{display:grid;grid-template-columns:1.22fr .78fr;gap:12px}
+.card{background:var(--panel);border:1px solid var(--border);border-radius:15px;padding:13px}
+.card h2{font-size:15px;margin:0 0 10px}.card h3{font-size:13px;margin:15px 0 8px;color:#c7d4e8}
+.auction-grid{display:grid;grid-template-columns:1.6fr .55fr .9fr;gap:9px}
+label small{color:var(--muted);display:block;margin:0 0 5px;font-size:11px}
+.input,select{width:100%;border:1px solid var(--border);background:var(--panel3);color:var(--text);padding:10px 11px;border-radius:10px;outline:none}
+input[type=number]::-webkit-outer-spin-button,
+input[type=number]::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
+input[type=number]{-moz-appearance:textfield;appearance:textfield}
+.bid-input-wrap{display:grid;grid-template-columns:52px minmax(82px,1fr) 52px;gap:6px;align-items:center;background:var(--panel2);border:1px solid var(--border);border-radius:18px;padding:6px}
+.bid-btn{height:48px;border-radius:14px;border:0;background:#1e2b45;color:var(--text);font-size:30px;font-weight:900;display:grid;place-items:center;line-height:1}
+.bid-btn:hover{filter:brightness(1.08)}
+.bid-btn:active{transform:scale(.985)}
+.bid-input{height:48px;text-align:center;font-size:28px;font-weight:900;padding:0 6px;border-radius:14px;border:0;background:transparent}
+.bid-input:focus{border:0;box-shadow:none;outline:none}
+@media(max-width:760px){
+  .bid-input-wrap{grid-template-columns:50px minmax(88px,1fr) 50px}
+  .bid-btn{height:50px;font-size:31px}
+  .bid-input{height:50px;font-size:30px}
+}
+
+.input:focus,select:focus{border-color:var(--accent)}
+.player-summary{display:grid;grid-template-columns:repeat(6,1fr);gap:8px;margin-top:10px}
+.kpi{background:var(--panel2);border:1px solid var(--border);border-radius:10px;padding:8px}
+.kpi small{display:block;color:var(--muted);font-size:10px}.kpi b{display:block;font-size:17px;margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.signal{padding:12px;margin-top:10px;border-radius:11px;font-weight:900;text-align:center;border:1px solid}
+.signal.good{background:rgba(61,220,151,.10);border-color:rgba(61,220,151,.35);color:var(--good)}
+.signal.warn{background:rgba(244,201,93,.10);border-color:rgba(244,201,93,.35);color:var(--warn)}
+.signal.bad{background:rgba(255,107,134,.10);border-color:rgba(255,107,134,.35);color:var(--bad)}
+.help{font-size:11px;color:var(--muted);margin-top:6px;text-align:center}
+.power-head{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.leader-badge{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--border);background:var(--panel2);border-radius:999px;padding:6px 9px;font-size:11px}
+.power-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:8px;margin-top:10px}
+.power-team{background:var(--panel2);border:1px solid var(--border);border-radius:12px;padding:10px;position:relative}
+.power-team.mine{outline:2px solid var(--accent)}
+.power-team.leader{border-color:var(--warn)}
+.power-team.out{opacity:.55}
+.power-team-head{display:flex;justify-content:space-between;align-items:flex-start;gap:8px}
+.power-team-name{font-size:12px;font-weight:800}
+.power-score{min-width:42px;text-align:center;border-radius:999px;padding:4px 7px;font-size:11px;font-weight:900;background:#233452}
+.power-score.high{color:var(--bad)}
+.power-score.mid{color:var(--warn)}
+.power-score.low{color:var(--good)}
+.power-metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:5px;margin-top:8px}
+.power-metric{background:var(--panel3);border-radius:8px;padding:6px}
+.power-metric small{display:block;color:var(--muted);font-size:9px}.power-metric b{font-size:13px}
+.power-status{margin-top:7px;font-size:10px;font-weight:800}
+.power-strategy{margin-top:4px;font-size:10px;color:#cdd8e8;line-height:1.4}
+.auction-strategy{margin-top:9px;padding:10px;border:1px solid var(--border);background:var(--panel3);border-radius:10px;font-size:11px;line-height:1.45}
+.bid-timeline{display:flex;gap:6px;overflow-x:auto;padding:8px 0 2px;scrollbar-width:thin}
+.bid-event{flex:0 0 auto;border:1px solid var(--border);background:var(--panel2);border-radius:999px;padding:5px 8px;font-size:10px;white-space:nowrap}
+.bid-event.mine{border-color:var(--accent)}
+.bid-event.counter{border-color:var(--warn)}
+.behavior{margin-top:5px;color:var(--muted);font-size:9px}
+.row-actions{display:flex;gap:7px;flex-wrap:wrap;margin-top:10px}
+.teams{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
+.team{background:var(--panel2);border:1px solid var(--border);border-radius:11px;padding:9px}
+.team.mine{outline:2px solid var(--accent)}
+.team-top{display:flex;justify-content:space-between;gap:8px;align-items:flex-start}
+.team-name{font-weight:800;font-size:12px}.credits{font-weight:900;font-size:18px}
+.slots{font-size:10px;color:var(--muted);margin-top:4px}
+.bar{height:6px;background:#0a1220;border-radius:999px;margin-top:7px;overflow:hidden}.bar i{height:100%;display:block;background:var(--accent)}
+.team details{margin-top:7px}.team summary{font-size:10px;color:var(--muted);cursor:pointer}
+.roster{font-size:10px;line-height:1.55;margin-top:4px;color:#cdd8e8}
+.full{grid-column:1/-1}
+.filters{display:grid;grid-template-columns:2fr repeat(4,1fr);gap:7px;margin-bottom:8px}
+.tablewrap{overflow:auto;max-height:500px;border:1px solid var(--border);border-radius:11px}
+table{border-collapse:collapse;width:100%;min-width:860px}
+th,td{padding:8px 9px;border-bottom:1px solid var(--border);font-size:11px;text-align:left}
+th{position:sticky;top:0;background:#152039;z-index:1;color:#c5d2e7}
+tr:hover td{background:#121d32}
+.role{display:inline-grid;place-items:center;width:24px;height:24px;border-radius:50%;background:#233452;font-weight:900}
+.badge{display:inline-block;border:1px solid var(--border);border-radius:999px;padding:2px 6px;font-size:9px;color:#d8e2ef}
+.star{border:0;background:transparent;color:#6f7d91;font-size:17px;padding:1px 4px}.star.on{color:var(--warn)}
+.smallbtn{border:1px solid var(--border);background:var(--panel2);color:var(--text);padding:5px 7px;border-radius:7px;font-size:10px}
+.status-sold{color:var(--bad)}.status-free{color:var(--good)}.status-mine{color:var(--accent)}
+.strategy-item{background:var(--panel2);border:1px solid var(--border);border-radius:10px;padding:9px;margin-bottom:7px}
+.strategy-line{display:flex;justify-content:space-between;gap:8px}.strategy-line b:last-child{font-size:18px}
+.history{max-height:260px;overflow:auto}
+.history-row{display:grid;grid-template-columns:1fr auto;gap:8px;padding:7px 0;border-bottom:1px solid var(--border);font-size:11px}
+.note{color:var(--muted);font-size:10px}
+.fav-list{display:flex;flex-wrap:wrap;gap:5px}
+.fav-chip{border:1px solid var(--border);background:var(--panel2);border-radius:999px;padding:5px 8px;font-size:10px;cursor:pointer}
+dialog{width:min(760px,94vw);background:var(--panel);color:var(--text);border:1px solid var(--border);border-radius:15px;padding:14px}
+dialog::backdrop{background:rgba(0,0,0,.7)}
+.formgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:9px}
+.modal-actions{display:flex;justify-content:flex-end;gap:7px;margin-top:12px}
+.toast{position:fixed;right:16px;bottom:16px;max-width:320px;padding:10px 12px;background:#19243a;border:1px solid var(--border);border-radius:10px;display:none}
+@media(max-width:1100px){.layout{grid-template-columns:1fr}.stats{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:760px){.app{padding:9px}.stats{grid-template-columns:repeat(2,1fr)}.auction-grid,.filters{grid-template-columns:1fr}.player-summary{grid-template-columns:repeat(3,1fr)}.teams{grid-template-columns:1fr}.formgrid{grid-template-columns:1fr}.power-grid{grid-template-columns:1fr}.power-metrics{grid-template-columns:repeat(3,1fr)}}
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="top">
+    <div class="brand">
+      <div class="logo">SM</div>
+      <div><h1>FantAsta 2026/27</h1><div class="sub">Sporting Madonna · 10 squadre · listone Fantacalcio reale · offline</div></div>
+    </div>
+    <div class="actions">
+      <button class="btn" id="cfgBtn">⚙ Configura</button>
+      <button class="btn" id="exportBtn">Esporta backup</button>
+      <label class="btn">Importa backup<input id="importFile" type="file" accept=".json" hidden></label>
+      <button class="btn danger" id="resetBtn">Nuova asta</button>
+    </div>
+  </div>
+
+  <section class="stats">
+    <div class="stat"><small>Crediti Sporting Madonna</small><b id="myCredits">600</b></div>
+    <div class="stat"><small>Giocatori presi</small><b id="myCount">0</b></div>
+    <div class="stat"><small>Slot rimasti</small><b id="mySlots">25</b></div>
+    <div class="stat"><small>Inflazione generale</small><b id="inflation">0%</b></div>
+    <div class="stat"><small>Potere massimo d'acquisto</small><b id="buyPower">576</b></div>
+  </section>
+
+  <div class="layout">
+    <div class="card">
+      <h2>🎯 Asta live</h2>
+      <div class="auction-grid">
+        <label><small>Giocatore</small><input id="auctionPlayer" class="input" list="playerList" placeholder="Cerca e seleziona..."><datalist id="playerList"></datalist></label>
+        <label>
+          <small>Offerta corrente</small>
+          <div class="bid-input-wrap">
+            <button type="button" class="bid-btn" id="minusBid" aria-label="Diminuisci offerta">−</button>
+            <input id="currentBid" class="input bid-input" type="number" min="1" value="1" inputmode="numeric">
+            <button type="button" class="bid-btn" id="plusBid" aria-label="Aumenta offerta">+</button>
+          </div>
+        </label>
+        <label><small>Squadra che rilancia / in testa</small><select id="bidder"></select></label>
+      </div>
+      <div class="player-summary">
+        <div class="kpi"><small>Ruolo</small><b id="pRole">—</b></div>
+        <div class="kpi"><small>Club</small><b id="pClub">—</b></div>
+        <div class="kpi"><small>Quot.</small><b id="pQuot">—</b></div>
+        <div class="kpi"><small>FVM</small><b id="pFvm">—</b></div>
+        <div class="kpi"><small>Target 600</small><b id="pTarget">—</b></div>
+        <div class="kpi"><small>Max dinamico</small><b id="pMax">—</b></div>
+      </div>
+      <div id="signal" class="signal warn">Seleziona un giocatore</div>
+      <div id="signalHelp" class="help">Il target parte da FVM × 0,6; il massimo si adatta all'andamento dell'asta e al budget residuo.</div>
+      <div class="row-actions">
+        <button class="btn primary" id="registerBidBtn">⚡ Registra rilancio</button>
+        <button class="btn" id="mineBtn">✓ Assegna a Sporting Madonna</button>
+        <button class="btn" id="assignBtn">Assegna alla squadra selezionata</button>
+        <button class="btn" id="undoBtn">↩ Annulla ultimo acquisto</button>
+        <button class="btn" id="favBtn">☆ Osserva giocatore</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>🏆 Situazione squadre</h2>
+      <div id="teams" class="teams"></div>
+    </div>
+
+    <div class="card full">
+      <div class="power-head">
+        <h2>⚔️ Potenza d'acquisto sul giocatore selezionato</h2>
+        <div id="leaderBadge" class="leader-badge">Nessun rilancio registrato</div>
+      </div>
+      <div id="auctionStrategy" class="auction-strategy">Seleziona un giocatore per confrontare tutte le squadre.</div>
+      <div id="bidTimeline" class="bid-timeline"></div>
+      <div id="powerGrid" class="power-grid"></div>
+    </div>
