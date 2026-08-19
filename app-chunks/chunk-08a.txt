@@ -1,0 +1,86 @@
+}
+
+function teamLegalMax(t,p){
+  if(!t||!p||slotsLeft(t,p.role)<=0) return 0;
+  return maxAffordable(t);
+}
+
+function estimatedMaxForTeam(t,p){
+  if(!t||!p||slotsLeft(t,p.role)<=0) return 0;
+  if(t.name===state.config.mine) return dynamicMax(p);
+  const hard=teamLegalMax(t,p);
+  if(hard<=0) return 0;
+  const roleInfl=clamp(inflation(p.role),-.15,.35);
+  const overallInfl=clamp(inflation(),-.10,.20);
+  const infl=(roleInfl*.75)+(overallInfl*.25);
+
+  const slots=totalSlotsLeft(t);
+  const startSlots=Math.max(1,totalRosterSlots());
+  const startFreePerSlot=Math.max(1,(state.config.initialCredits-startSlots)/startSlots);
+  const freePerSlot=Math.max(0,(creditsLeft(t)-slots)/Math.max(1,slots));
+  const liquidityRatio=freePerSlot/startFreePerSlot;
+  const liquidityFactor=clamp(.78,1.25,.82+(.18*liquidityRatio));
+
+  const roleTarget=Math.max(1,Math.round(state.config.initialCredits*(state.config.budgetPct[p.role]||0)/100));
+  const roleBudgetRatio=clamp((roleTarget-roleSpent(t,p.role))/roleTarget,-.5,1.5);
+  const roleOpenRatio=state.config.slots[p.role]?slotsLeft(t,p.role)/state.config.slots[p.role]:0;
+  const needFactor=clamp(.82,1.18,.86+(.16*roleOpenRatio)+(.08*roleBudgetRatio));
+
+  return Math.max(0,Math.min(hard,Math.round(p.baseMax*(1+infl)*liquidityFactor*needFactor)));
+}
+
+function biddingProfile(teamName){
+  let againstMine=0,mineAgainst=0,total=0,jumpSum=0;
+  const grouped={};
+  for(const e of state.bidHistory){(grouped[e.player]??=[]).push(e)}
+  for(const events of Object.values(grouped)){
+    events.sort((a,b)=>a.ts-b.ts);
+    for(let i=0;i<events.length;i++){
+      const e=events[i],prev=i?events[i-1]:null;
+      if(e.team===teamName){
+        total++;
+        if(prev){jumpSum+=Math.max(0,e.amount-prev.amount);if(prev.team===state.config.mine)againstMine++}
+      }
+      if(e.team===state.config.mine && prev?.team===teamName) mineAgainst++;
+    }
+  }
+  return {againstMine,mineAgainst,total,avgJump:total?jumpSum/total:0};
+}
+
+function purchasePower(t,p,bid){
+  const hard=teamLegalMax(t,p);
+  const est=estimatedMaxForTeam(t,p);
+  const roleOpen=slotsLeft(t,p?.role);
+  if(!p||roleOpen<=0||hard<=bid) return {hard,est,score:0,label:'Fuori gioco',cls:'low'};
+  const room=Math.max(0,est-bid);
+  const base=Math.max(1,p.baseMax);
+  const roomScore=clamp(room/base,0,1.25)/1.25;
+  const slots=Math.max(1,totalSlotsLeft(t));
+  const startSlots=Math.max(1,totalRosterSlots());
+  const startFreePerSlot=Math.max(1,(state.config.initialCredits-startSlots)/startSlots);
+  const freePerSlot=Math.max(0,(creditsLeft(t)-slots)/slots);
+  const liquidity=clamp(freePerSlot/startFreePerSlot,0,1.5)/1.5;
+  const need=state.config.slots[p.role]?clamp(roleOpen/state.config.slots[p.role],0,1):0;
+  const score=Math.round(clamp((roomScore*.58+liquidity*.27+need*.15)*100,0,100));
+  const label=score>=70?'Minaccia alta':score>=40?'Minaccia media':'Minaccia bassa';
+  return {hard,est,score,label,cls:score>=70?'high':score>=40?'mid':'low'};
+}
+
+function pressureLimitAgainst(opponent,p,bid){
+  const me=team(state.config.mine);
+  if(!p||!me||opponent.name===state.config.mine) return 0;
+  const myMax=dynamicMax(p);
+  const oppEst=estimatedMaxForTeam(opponent,p);
+  // limite prudente: non oltre target personale e sempre almeno 1 sotto la stima avversaria
+  return Math.max(0,Math.min(myMax,p.base600,oppEst-1));
+}
+
+function signalFor(p,bid){
+  if(!p) return {cls:"warn",txt:"Seleziona un giocatore",help:""};
+  const sold=soldEntry(p.name);
+  if(sold) return {cls:"bad",txt:"GIÀ ASSEGNATO",help:`${sold.team} per ${sold.price} crediti`};
+  const max=dynamicMax(p);
+  const me=team(state.config.mine);
+  if(slotsLeft(me,p.role)<=0) return {cls:"bad",txt:"LASCIA — ruolo completo",help:`Sporting Madonna non ha più slot ${p.role}`};
+  if(max<=0) return {cls:"bad",txt:"LASCIA — budget non disponibile",help:"Devi conservare almeno 1 credito per ogni slot ancora libero."};
+  if(bid<=Math.max(1,Math.round(p.base600*.92))) return {cls:"good",txt:`RILANCIA — ottimo valore fino a ${ma
