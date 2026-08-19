@@ -4,46 +4,16 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#0a0f1d">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <title>FantAsta 2026/27 - Sporting Madonna</title>
-<link rel="stylesheet" href="./clean/styles.css">
+<link rel="stylesheet" href="./clean/styles.css?v=20260819-1520">
 </head>
 <body>
 <div class="app">
-  <header class="topbar">
-    <div class="brand"><div class="logo">SM</div><div><h1>FantAsta 2026/27</h1><p>Sporting Madonna · 10 squadre · 600 crediti</p></div></div>
-    <div class="top-actions">
-      <button id="configBtn" class="btn">Configura</button>
-      <button id="exportBtn" class="btn">Esporta backup</button>
-      <label class="btn file-btn">Importa backup<input id="importFile" type="file" accept=".json"></label>
-      <button id="resetBtn" class="btn danger">Nuova asta</button>
-    </div>
-  </header>
-  <section class="stats">
-    <div class="metric"><small>Crediti Sporting Madonna</small><b id="myCredits">600</b></div>
-    <div class="metric"><small>Giocatori presi</small><b id="myCount">0</b></div>
-    <div class="metric"><small>Slot rimasti</small><b id="mySlots">25</b></div>
-    <div class="metric"><small>Inflazione asta</small><b id="inflation">0%</b></div>
-    <div class="metric"><small>Potere massimo</small><b id="buyPower">576</b></div>
-  </section>
+  <header class="topbar"><div class="brand"><div class="logo">SM</div><div><h1>FantAsta 2026/27</h1><p>Sporting Madonna · 10 squadre · 600 crediti</p></div></div><div class="top-actions"><button id="configBtn" class="btn">Configura</button><button id="exportBtn" class="btn">Esporta backup</button><label class="btn file-btn">Importa backup<input id="importFile" type="file" accept=".json"></label><button id="resetBtn" class="btn danger">Nuova asta</button></div></header>
+  <section class="stats"><div class="metric"><small>Crediti Sporting Madonna</small><b id="myCredits">600</b></div><div class="metric"><small>Giocatori presi</small><b id="myCount">0</b></div><div class="metric"><small>Slot rimasti</small><b id="mySlots">25</b></div><div class="metric"><small>Inflazione asta</small><b id="inflation">0%</b></div><div class="metric"><small>Potere massimo</small><b id="buyPower">576</b></div></section>
   <main class="layout">
-    <section class="card auction-card">
-      <h2>Asta live</h2>
-      <div class="auction-grid">
-        <label><span>Giocatore</span><input id="auctionPlayer" class="input" list="playerList" autocomplete="off" placeholder="Cerca un calciatore..."><datalist id="playerList"></datalist></label>
-        <label><span>Offerta corrente</span><div class="bid-control"><button id="bidMinus" type="button" aria-label="Diminuisci">−</button><input id="currentBid" type="number" min="1" value="1" inputmode="numeric"><button id="bidPlus" type="button" aria-label="Aumenta">+</button></div></label>
-        <label><span>Chi rilancia / controrilancia?</span><select id="bidder"></select></label>
-      </div>
-      <div class="player-kpis">
-        <div><small>Ruolo</small><b id="pRole">—</b></div><div><small>Club</small><b id="pClub">—</b></div><div><small>Quot.</small><b id="pQuot">—</b></div><div><small>FVM</small><b id="pFvm">—</b></div><div><small>Target 600</small><b id="pTarget">—</b></div><div><small>Max dinamico</small><b id="pMax">—</b></div>
-      </div>
-      <div id="signal" class="signal neutral">Seleziona un giocatore</div>
-      <div id="signalHelp" class="signal-help">Il target iniziale deriva dall'FVM; il massimo si adatta all'asta.</div>
-      <div class="leader-row"><span>Leader asta</span><b id="liveLeader">—</b></div>
-      <div id="bidTrail" class="bid-trail"></div>
-      <div class="action-row">
-        <button id="recordBidBtn" class="btn primary">Registra rilancio</button><button id="undoBidBtn" class="btn">Annulla rilancio</button><button id="assignMineBtn" class="btn success">Assegna a Sporting Madonna</button><button id="assignTeamBtn" class="btn">Assegna alla squadra selezionata</button><button id="undoPurchaseBtn" class="btn">Annulla acquisto</button><button id="favBtn" class="btn">☆ Osserva</button>
-      </div>
-    </section>
+    <section class="card auction-card"><h2>Asta live</h2><div class="auction-grid"><label><span>Giocatore</span><input id="auctionPlayer" class="input" list="playerList" autocomplete="off" placeholder="Cerca un calciatore..."><datalist id="playerList"></datalist></label><label><span>Offerta corrente</span><div class="bid-control"><button id="bidMinus" type="button" aria-label="Diminuisci">−</button><input id="currentBid" type="number" min="1" value="1" inputmode="numeric"><button id="bidPlus" type="button" aria-label="Aumenta">+</button></div></label><label><span>Chi rilancia / controrilancia?</span><select id="bidder"></select></label></div><div class="player-kpis"><div><small>Ruolo</small><b id="pRole">—</b></div><div><small>Club</small><b id="pClub">—</b></div><div><small>Quot.</small><b id="pQuot">—</b></div><div><small>FVM</small><b id="pFvm">—</b></div><div><small>Target 600</small><b id="pTarget">—</b></div><div><small>Max dinamico</small><b id="pMax">—</b></div></div><div id="signal" class="signal neutral">Seleziona un giocatore</div><div id="signalHelp" class="signal-help">Il target iniziale deriva dall'FVM; il massimo si adatta all'asta.</div><div class="leader-row"><span>Leader asta</span><b id="liveLeader">—</b></div><div id="bidTrail" class="bid-trail"></div><div class="action-row"><button id="recordBidBtn" class="btn primary">Registra rilancio</button><button id="undoBidBtn" class="btn">Annulla rilancio</button><button id="assignMineBtn" class="btn success">Assegna a Sporting Madonna</button><button id="assignTeamBtn" class="btn">Assegna alla squadra selezionata</button><button id="undoPurchaseBtn" class="btn">Annulla acquisto</button><button id="favBtn" class="btn">☆ Osserva</button></div></section>
     <section class="card teams-card"><h2>Situazione squadre</h2><div id="teams" class="teams"></div></section>
     <section class="card full power-section"><h2>Potenza d'acquisto sul giocatore selezionato</h2><p class="section-note">Stima comparativa: combina capienza, liquidità, necessità nel ruolo e comportamento di rilancio. Non misura la volontà reale dell'avversario.</p><div id="strategySummary" class="strategy-summary">Seleziona un giocatore.</div><div id="powerGrid" class="power-grid"><div class="empty">Seleziona un giocatore.</div></div></section>
     <section class="card full"><h2>Listone calciatori</h2><div class="filters"><input id="search" class="input" placeholder="Nome o squadra..."><select id="roleFilter"><option value="">Tutti i ruoli</option><option>P</option><option>D</option><option>C</option><option>A</option></select><select id="tierFilter"><option value="">Tutte le fasce</option><option>TOP</option><option>SEMI-TOP</option><option>TITOLARE</option><option>SCOMMESSA</option><option>LOW COST</option></select><select id="statusFilter"><option value="available">Disponibili</option><option value="">Tutti</option><option value="sold">Assegnati</option><option value="mine">Miei</option><option value="fav">Osservati</option></select><select id="sortBy"><option value="fvm">FVM ↓</option><option value="target">Target ↓</option><option value="quot">Quotazione ↓</option><option value="name">Nome A-Z</option></select></div><div class="table-wrap"><table><thead><tr><th>★</th><th>R</th><th>Giocatore</th><th>Club</th><th>Fascia</th><th>Quot.</th><th>FVM</th><th>Target</th><th>Max live</th><th>Stato</th><th></th></tr></thead><tbody id="playersTable"></tbody></table></div></section>
@@ -53,7 +23,7 @@
 <dialog id="configDialog"><h2>Configurazione lega</h2><div class="form-grid"><label><span>Crediti iniziali</span><input id="cfgCredits" class="input" type="number" min="1"></label><label><span>Mia squadra</span><select id="cfgMine"></select></label><label><span>Portieri</span><input id="cfgP" class="input" type="number" min="0"></label><label><span>Difensori</span><input id="cfgD" class="input" type="number" min="0"></label><label><span>Centrocampisti</span><input id="cfgC" class="input" type="number" min="0"></label><label><span>Attaccanti</span><input id="cfgA" class="input" type="number" min="0"></label><label><span>Budget P %</span><input id="bp" class="input" type="number" min="0" max="100"></label><label><span>Budget D %</span><input id="bd" class="input" type="number" min="0" max="100"></label><label><span>Budget C %</span><input id="bc" class="input" type="number" min="0" max="100"></label><label><span>Budget A %</span><input id="ba" class="input" type="number" min="0" max="100"></label></div><div class="dialog-actions"><button id="closeConfigBtn" class="btn">Annulla</button><button id="saveConfigBtn" class="btn primary">Salva</button></div></dialog>
 <div id="toast" class="toast"></div>
 <script>window.PLAYER_CHUNKS=[];</script>
-<script src="./clean/data/players-01.js"></script><script src="./clean/data/players-02.js"></script><script src="./clean/data/players-03.js"></script><script src="./clean/data/players-04.js"></script><script src="./clean/data/players-05.js"></script>
-<script src="./clean/app-core.js"></script><script src="./clean/app-ui1.js"></script><script src="./clean/app-ui2.js"></script>
+<script src="./clean/data/players-01.js?v=20260819-1520"></script><script src="./clean/data/players-02.js?v=20260819-1520"></script><script src="./clean/data/players-03.js?v=20260819-1520"></script><script src="./clean/data/players-04.js?v=20260819-1520"></script><script src="./clean/data/players-05.js?v=20260819-1520"></script>
+<script src="./clean/app-core.js?v=20260819-1520"></script><script src="./clean/app-ui1.js?v=20260819-1520"></script><script src="./clean/app-ui2.js?v=20260819-1520"></script>
 </body>
 </html>
