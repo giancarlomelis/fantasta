@@ -1,0 +1,84 @@
+").value;
+  const t=team(teamName);
+  if(!p){toast("Seleziona un calciatore valido.");return}
+  if(soldEntry(p.name)){toast("Calciatore già assegnato.");return}
+  if(!t||amount<1){toast("Rilancio non valido.");return}
+  if(slotsLeft(t,p.role)<=0){toast(`${t.name}: nessuno slot ${p.role} disponibile.`);return}
+  if(amount>teamLegalMax(t,p)){toast(`${t.name} non può arrivare a ${amount} crediti.`);return}
+  const prev=lastBidFor(p.name);
+  if(prev && amount<=prev.amount){toast(`Il rilancio deve superare ${prev.amount}.`);return}
+  if(prev && prev.team===teamName){toast(`${teamName} è già la squadra in testa.`);return}
+  state.bidHistory.push({player:p.name,role:p.role,team:teamName,amount,ts:Date.now()});
+  renderAll();
+  toast(prev?`Controrilancio: ${teamName} a ${amount}`:`Prima offerta: ${teamName} a ${amount}`);
+}
+
+function assign(teamName){
+  const p=playerByName(byId("auctionPlayer").value);
+  const price=+byId("currentBid").value||0;
+  if(!p){toast("Seleziona un calciatore valido.");return}
+  if(soldEntry(p.name)){toast("Calciatore già assegnato.");return}
+  if(price<1){toast("Inserisci un prezzo valido.");return}
+  const t=team(teamName);
+  if(!t){return}
+  if(slotsLeft(t,p.role)<=0){toast(`${t.name}: nessuno slot ${p.role} disponibile.`);return}
+  if(price>maxAffordable(t)){toast(`${t.name} deve conservare almeno 1 credito per ogni slot residuo.`);return}
+  const last=lastBidFor(p.name);
+  if(!last || last.team!==t.name || last.amount!==price){state.bidHistory.push({player:p.name,role:p.role,team:t.name,amount:price,ts:Date.now(),final:true});}
+  t.spent+=price;
+  t.roster.push({player:p.name,role:p.role,price});
+  state.history.push({player:p.name,role:p.role,team:t.name,price,ts:Date.now()});
+  byId("auctionPlayer").value="";
+  byId("currentBid").value=1;
+  renderAll();
+}
+
+function undo(){
+  const h=state.history.pop();
+  if(!h){toast("Nessun acquisto da annullare.");return}
+  const t=team(h.team);
+  if(t){
+    t.spent-=h.price;
+    const i=t.roster.findIndex(x=>x.player===h.player);
+    if(i>=0)t.roster.splice(i,1);
+  }
+  renderAll();toast(`Annullato: ${h.player}`);
+}
+
+function toggleFav(name){
+  if(!name)return;
+  const i=state.favorites.indexOf(name);
+  if(i>=0)state.favorites.splice(i,1); else state.favorites.push(name);
+  renderPlayers();renderStrategy();renderAuction();saveState();
+}
+
+function exportBackup(){
+  const blob=new Blob([JSON.stringify(state,null,2)],{type:"application/json"});
+  const a=document.createElement("a");
+  a.href=URL.createObjectURL(blob);
+  a.download="FantAsta_Sporting_Madonna_backup_"+new Date().toISOString().slice(0,10)+".json";
+  a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000);
+}
+function importBackup(file){
+  const r=new FileReader();
+  r.onload=()=>{
+    try{const s=JSON.parse(r.result);if(!s.favorites)s.favorites=[];if(!s.bidHistory)s.bidHistory=[];state=s;renderAll();toast("Backup importato.");}
+    catch(e){toast("Backup JSON non valido.");}
+  };
+  r.readAsText(file);
+}
+function openConfig(){
+  byId("cfgCredits").value=state.config.initialCredits;
+  byId("cfgMine").value=state.config.mine;
+  byId("cfgP").value=state.config.slots.P;byId("cfgD").value=state.config.slots.D;byId("cfgC").value=state.config.slots.C;byId("cfgA").value=state.config.slots.A;
+  byId("bp").value=state.config.budgetPct.P;byId("bd").value=state.config.budgetPct.D;byId("bc").value=state.config.budgetPct.C;byId("ba").value=state.config.budgetPct.A;
+  byId("configDialog").showModal();
+}
+function saveConfig(){
+  const pcts={P:+byId("bp").value||0,D:+byId("bd").value||0,C:+byId("bc").value||0,A:+byId("ba").value||0};
+  const sum=Object.values(pcts).reduce((a,b)=>a+b,0);
+  if(sum!==100){toast("Le percentuali di reparto devono sommare a 100.");return}
+  state.config.initialCredits=+byId("cfgCredits").value||600;
+  state.config.mine=byId("cfgMine").value;
+  state.config.slots={P:+byId("cfgP").value||0,D:+byId("cfgD").value||0,C:+byId("cfgC").value||0,A:+byId("cfgA").value||0};
+  state.config.budgetPct=pcts
