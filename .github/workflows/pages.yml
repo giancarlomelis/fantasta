@@ -26,9 +26,9 @@ jobs:
 
       - name: Prepare static site
         run: |
-          mkdir -p _site/app-chunks
+          mkdir -p _site
           cp index.html _site/
-          cp app-chunks/*.txt _site/app-chunks/
+          cp -r clean _site/clean
           touch _site/.nojekyll
 
       - name: Configure GitHub Pages
