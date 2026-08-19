@@ -1,0 +1,36 @@
+;
+  byId("configDialog").close();renderAll();
+}
+
+["search","roleFilter","tierFilter","statusFilter","sortBy"].forEach(id=>byId(id).addEventListener("input",renderPlayers));
+byId("auctionPlayer").addEventListener("input",()=>{renderAuction();renderPower();});
+byId("auctionPlayer").addEventListener("change",syncAuctionFromSelectedPlayer);
+byId("currentBid").addEventListener("input",()=>{renderAuction();renderPower();});
+byId("bidder").addEventListener("change",renderPower);
+
+function changeBid(delta){
+  const inp=byId("currentBid");
+  let v=parseInt(inp.value || "1",10);
+  if(Number.isNaN(v)) v=1;
+  v=Math.max(1,v+delta);
+  inp.value=v;
+  renderAuction();
+  renderPower();
+}
+byId("minusBid").addEventListener("click",()=>changeBid(-1));
+byId("plusBid").addEventListener("click",()=>changeBid(1));
+byId("registerBidBtn").addEventListener("click",registerBid);
+byId("mineBtn").addEventListener("click",()=>assign(state.config.mine));
+byId("assignBtn").addEventListener("click",()=>assign(byId("bidder").value));
+byId("undoBtn").addEventListener("click",undo);
+byId("favBtn").addEventListener("click",()=>{const p=playerByName(byId("auctionPlayer").value);if(p)toggleFav(p.name);});
+byId("cfgBtn").addEventListener("click",openConfig);
+byId("closeCfg").addEventListener("click",()=>byId("configDialog").close());
+byId("saveCfg").addEventListener("click",saveConfig);
+byId("exportBtn").addEventListener("click",exportBackup);
+byId("importFile").addEventListener("change",e=>{if(e.target.files[0])importBackup(e.target.files[0])});
+byId("resetBtn").addEventListener("click",()=>{if(confirm("Azzerare completamente l'asta?")){state=clone(defaultState);localStorage.removeItem(STORAGE_KEY);renderAll();}});
+renderAll();
+</script>
+</body>
+</html>
