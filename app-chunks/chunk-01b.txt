@@ -1,0 +1,101 @@
+12px}.credits{font-weight:900;font-size:18px}
+.slots{font-size:10px;color:var(--muted);margin-top:4px}
+.bar{height:6px;background:#0a1220;border-radius:999px;margin-top:7px;overflow:hidden}.bar i{height:100%;display:block;background:var(--accent)}
+.team details{margin-top:7px}.team summary{font-size:10px;color:var(--muted);cursor:pointer}
+.roster{font-size:10px;line-height:1.55;margin-top:4px;color:#cdd8e8}
+.full{grid-column:1/-1}
+.filters{display:grid;grid-template-columns:2fr repeat(4,1fr);gap:7px;margin-bottom:8px}
+.tablewrap{overflow:auto;max-height:500px;border:1px solid var(--border);border-radius:11px}
+table{border-collapse:collapse;width:100%;min-width:860px}
+th,td{padding:8px 9px;border-bottom:1px solid var(--border);font-size:11px;text-align:left}
+th{position:sticky;top:0;background:#152039;z-index:1;color:#c5d2e7}
+tr:hover td{background:#121d32}
+.role{display:inline-grid;place-items:center;width:24px;height:24px;border-radius:50%;background:#233452;font-weight:900}
+.badge{display:inline-block;border:1px solid var(--border);border-radius:999px;padding:2px 6px;font-size:9px;color:#d8e2ef}
+.star{border:0;background:transparent;color:#6f7d91;font-size:17px;padding:1px 4px}.star.on{color:var(--warn)}
+.smallbtn{border:1px solid var(--border);background:var(--panel2);color:var(--text);padding:5px 7px;border-radius:7px;font-size:10px}
+.status-sold{color:var(--bad)}.status-free{color:var(--good)}.status-mine{color:var(--accent)}
+.strategy-item{background:var(--panel2);border:1px solid var(--border);border-radius:10px;padding:9px;margin-bottom:7px}
+.strategy-line{display:flex;justify-content:space-between;gap:8px}.strategy-line b:last-child{font-size:18px}
+.history{max-height:260px;overflow:auto}
+.history-row{display:grid;grid-template-columns:1fr auto;gap:8px;padding:7px 0;border-bottom:1px solid var(--border);font-size:11px}
+.note{color:var(--muted);font-size:10px}
+.fav-list{display:flex;flex-wrap:wrap;gap:5px}
+.fav-chip{border:1px solid var(--border);background:var(--panel2);border-radius:999px;padding:5px 8px;font-size:10px;cursor:pointer}
+dialog{width:min(760px,94vw);background:var(--panel);color:var(--text);border:1px solid var(--border);border-radius:15px;padding:14px}
+dialog::backdrop{background:rgba(0,0,0,.7)}
+.formgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:9px}
+.modal-actions{display:flex;justify-content:flex-end;gap:7px;margin-top:12px}
+.toast{position:fixed;right:16px;bottom:16px;max-width:320px;padding:10px 12px;background:#19243a;border:1px solid var(--border);border-radius:10px;display:none}
+@media(max-width:1100px){.layout{grid-template-columns:1fr}.stats{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:760px){.app{padding:9px}.stats{grid-template-columns:repeat(2,1fr)}.auction-grid,.filters{grid-template-columns:1fr}.player-summary{grid-template-columns:repeat(3,1fr)}.teams{grid-template-columns:1fr}.formgrid{grid-template-columns:1fr}.power-grid{grid-template-columns:1fr}.power-metrics{grid-template-columns:repeat(3,1fr)}}
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="top">
+    <div class="brand">
+      <div class="logo">SM</div>
+      <div><h1>FantAsta 2026/27</h1><div class="sub">Sporting Madonna · 10 squadre · listone Fantacalcio reale · offline</div></div>
+    </div>
+    <div class="actions">
+      <button class="btn" id="cfgBtn">⚙ Configura</button>
+      <button class="btn" id="exportBtn">Esporta backup</button>
+      <label class="btn">Importa backup<input id="importFile" type="file" accept=".json" hidden></label>
+      <button class="btn danger" id="resetBtn">Nuova asta</button>
+    </div>
+  </div>
+
+  <section class="stats">
+    <div class="stat"><small>Crediti Sporting Madonna</small><b id="myCredits">600</b></div>
+    <div class="stat"><small>Giocatori presi</small><b id="myCount">0</b></div>
+    <div class="stat"><small>Slot rimasti</small><b id="mySlots">25</b></div>
+    <div class="stat"><small>Inflazione generale</small><b id="inflation">0%</b></div>
+    <div class="stat"><small>Potere massimo d'acquisto</small><b id="buyPower">576</b></div>
+  </section>
+
+  <div class="layout">
+    <div class="card">
+      <h2>🎯 Asta live</h2>
+      <div class="auction-grid">
+        <label><small>Giocatore</small><input id="auctionPlayer" class="input" list="playerList" placeholder="Cerca e seleziona..."><datalist id="playerList"></datalist></label>
+        <label>
+          <small>Offerta corrente</small>
+          <div class="bid-input-wrap">
+            <button type="button" class="bid-btn" id="minusBid" aria-label="Diminuisci offerta">−</button>
+            <input id="currentBid" class="input bid-input" type="number" min="1" value="1" inputmode="numeric">
+            <button type="button" class="bid-btn" id="plusBid" aria-label="Aumenta offerta">+</button>
+          </div>
+        </label>
+        <label><small>Squadra che rilancia / in testa</small><select id="bidder"></select></label>
+      </div>
+      <div class="player-summary">
+        <div class="kpi"><small>Ruolo</small><b id="pRole">—</b></div>
+        <div class="kpi"><small>Club</small><b id="pClub">—</b></div>
+        <div class="kpi"><small>Quot.</small><b id="pQuot">—</b></div>
+        <div class="kpi"><small>FVM</small><b id="pFvm">—</b></div>
+        <div class="kpi"><small>Target 600</small><b id="pTarget">—</b></div>
+        <div class="kpi"><small>Max dinamico</small><b id="pMax">—</b></div>
+      </div>
+      <div id="signal" class="signal warn">Seleziona un giocatore</div>
+      <div id="signalHelp" class="help">Il target parte da FVM × 0,6; il massimo si adatta all'andamento dell'asta e al budget residuo.</div>
+      <div class="row-actions">
+        <button class="btn primary" id="registerBidBtn">⚡ Registra rilancio</button>
+        <button class="btn" id="mineBtn">✓ Assegna a Sporting Madonna</button>
+        <button class="btn" id="assignBtn">Assegna alla squadra selezionata</button>
+        <button class="btn" id="undoBtn">↩ Annulla ultimo acquisto</button>
+        <button class="btn" id="favBtn">☆ Osserva giocatore</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>🏆 Situazione squadre</h2>
+      <div id="teams" class="teams"></div>
+    </div>
+
+    <div class="card full">
+      <div class="power-head">
+        <h2>⚔️ Potenza d'acquisto sul giocatore selezionato</h2>
+        <div id="leaderBadge" class="leader-badge">Nessun rilancio registrato</div>
+      </div>
+      <div id="auctionStrategy" class="auction-strategy">Seleziona un gioc
