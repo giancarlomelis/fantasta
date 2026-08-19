@@ -26,8 +26,9 @@ jobs:
 
       - name: Prepare static site
         run: |
-          mkdir -p _site
-          cp index.html legacy.html enhance.js enhance.css _site/
+          mkdir -p _site/app-chunks
+          cp index.html _site/
+          cp app-chunks/*.txt _site/app-chunks/
           touch _site/.nojekyll
 
       - name: Configure GitHub Pages
@@ -41,5 +42,3 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
-
-# deployment trigger 2026-08-19
