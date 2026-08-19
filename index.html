@@ -4,15 +4,37 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>FantAsta 2026/27 — Sporting Madonna</title>
-<style>html,body{margin:0;width:100%;height:100%;background:#0a0f1d}#app{display:block;width:100%;min-height:100vh;border:0;background:#0a0f1d}</style>
+<style>
+html,body{margin:0;background:#0a0f1d;color:#eef4ff;font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}
+#loading{padding:24px;font-size:16px}
+</style>
 </head>
 <body>
-<iframe id="app" src="./legacy.html" title="FantAsta"></iframe>
+<div id="loading">Caricamento FantAsta…</div>
 <script>
-const frame=document.getElementById('app');
-function resizeFrame(){try{const d=frame.contentDocument;frame.style.height=Math.max(document.documentElement.clientHeight,d.documentElement.scrollHeight,d.body.scrollHeight)+'px'}catch(e){}}
-frame.addEventListener('load',()=>{const d=frame.contentDocument;if(!d)return;const s=d.createElement('script');s.src='./enhance.js';d.body.appendChild(s);resizeFrame();if(window.ResizeObserver)new ResizeObserver(resizeFrame).observe(d.body)});
-window.addEventListener('resize',resizeFrame);
+(async()=>{
+  const files=[
+    'chunk-01.txt','chunk-02.txt','chunk-03.txt','chunk-04.txt',
+    'chunk-05.txt','chunk-06.txt','chunk-07.txt',
+    'chunk-08a.txt','chunk-08b.txt','chunk-08c.txt','chunk-08d.txt',
+    'chunk-09a.txt','chunk-09b.txt','chunk-09c.txt'
+  ];
+  try{
+    const parts=await Promise.all(files.map(name=>
+      fetch('./app-chunks/'+name,{cache:'no-store'}).then(r=>{
+        if(!r.ok) throw new Error(name+' '+r.status);
+        return r.text();
+      })
+    ));
+    const html=parts.join('');
+    document.open();
+    document.write(html);
+    document.close();
+  }catch(err){
+    const el=document.getElementById('loading');
+    if(el) el.textContent='Errore nel caricamento dell’app: '+err.message;
+  }
+})();
 </script>
 </body>
 </html>
