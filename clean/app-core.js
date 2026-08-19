@@ -1,4 +1,4 @@
-const PLAYERS=(window.PLAYER_CHUNKS||[]).flat();
+const PLAYERS=(window.PLAYER_CHUNKS||[]).flat().map(r=>({id:r[0],name:r[1],role:r[2],mantra:r[3],club:r[4],quot:r[5],fvm:r[6],tier:r[7],base600:r[8],baseMax:r[9]}));
 const TEAMS=["AC Rullano","AS Quadra","Masterchef United","TEAM90","Cartagine FC","I Socic","IGORMITI","Sporting Madonna","Fc impossibile 3.0","AC Kaiser"];
 const STORAGE_KEY="fantasta_clean_v1",OLD_KEY="fantasta_sporting_madonna_2026_27_v2";
 const DEFAULT_STATE={config:{initialCredits:600,mine:"Sporting Madonna",slots:{P:3,D:8,C:8,A:6},budgetPct:{P:8,D:15,C:27,A:50}},teams:TEAMS.map(name=>({name,spent:0,roster:[]})),history:[],favorites:[],bidEvents:[]};
